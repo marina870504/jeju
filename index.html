@@ -98,7 +98,7 @@
   <div id="app">
     <!-- 頁首 Banner 與圓弧銜接區 -->
     <div class="relative h-[260px] w-full overflow-hidden">
-      <!-- 海景自駕遊圖片，設定 object-[center_35%] 完美聚焦人物與車輛 -->
+      <!-- 海景自駕遊圖片 -->
       <img src="海景自架由.jfif" alt="濟州島海景自駕遊" class="w-full h-full object-cover object-[center_35%]" onerror="this.src='https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1200&auto=format&fit=crop'" />
       
       <!-- 漸層遮罩 -->
@@ -698,6 +698,9 @@
           if (el) {
             new Sortable(el, {
               animation: 150,
+              delay: 1000,              // 必須持續按住 1 秒 (1000ms) 才觸發拖曳
+              delayOnTouchOnly: true,  // 僅對觸控裝置設定延遲，防滑動時誤觸
+              touchStartThreshold: 5,  // 允許微小手指晃動範圍，提升長按成功率
               onEnd: (evt) => {
                 const items = currentDayData.value.items;
                 const movedItem = items.splice(evt.oldIndex, 1)[0];
