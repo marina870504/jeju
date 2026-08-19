@@ -4,6 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>濟州島自駕之旅 🍊🗿</title>
+
+  <!-- ================= App 圖示與全螢幕 PWA 設定 ================= -->
+  <!-- iOS Safari 專用 App 主畫面圖示 -->
+  <link rel="apple-touch-icon" sizes="180x180" href="icon.png">
+  
+  <!-- Android Chrome & 一般瀏覽器圖示 -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icon.png">
+  
+  <!-- Web App Manifest (獨立單頁 App 設定) -->
+  <link rel="manifest" href="data:application/manifest+json;utf8,{
+    %22name%22:%22濟州島自駕之旅%20🍊%22,
+    %22short_name%22:%22濟州之旅%22,
+    %22start_url%22:%22./index.html%22,
+    %22display%22:%22standalone%22,
+    %22background_color%22:%22%23FFF8F2%22,
+    %22theme_color%22:%22%23FF8C42%22,
+    %22icons%22:[
+      {%22src%22:%22icon.png%22,%22sizes%22:%22192x192%22,%22type%22:%22image/png%22},
+      {%22src%22:%22icon.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}
+    ]
+  }">
+
+  <!-- 手機全螢幕與狀態列顏色 -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#FF8C42">
+  <!-- ======================================================== -->
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -490,7 +518,6 @@
         const exchange = ref({ krw: 10000, rate: 0.024 });
         const currentWeather = ref({ icon: 'fa-solid fa-sun text-amber-500', temp: 24, feelsLike: 25, text: '溫暖晴朗' });
 
-        // 包含完整的韓文名稱與韓文地址陣列
         const itinerary = ref([
           {
             date: '115/09/17', weekDay: 'Wed', dateNum: '17',
@@ -584,14 +611,12 @@
 
         const totalExpenseKRW = computed(() => expenses.value.reduce((sum, item) => sum + item.amount, 0));
 
-        // 精準的地圖網址生成函式
         const getGoogleMapUrl = (item) => {
           const query = item.korAddress || item.name;
           return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
         };
 
         const getNaverMapUrl = (item) => {
-          // 直接使用韓文地址與韓文名稱傳入 Naver Map 搜尋與導航
           const query = item.korAddress || item.name;
           return `https://map.naver.com/v5/search/${encodeURIComponent(query)}`;
         };
